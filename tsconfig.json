@@ -1,0 +1,52 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./",
+		"esModuleInterop": false,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"noEmit": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@assets/*": ["./src/assets/*"],
+			"@components/*": ["./src/components/*"],
+			"@contexts/*": ["./src/contexts/*"],
+			"@hooks/*": ["./src/hooks/*"],
+			"@modules/*": ["./src/modules/*"],
+			"@pages/*": ["./src/pages/*"],
+			"@styles/*": ["./src/styles/*"],
+			"@templates/*": ["./src/templates/*"],
+			"@types/*": ["src/typings/*"],
+			"@utils/*": ["./src/utils/*"]
+		},
+		"resolveJsonModule": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ESNext",
+		"types": ["node", "vite/client"],
+		"typeRoots": ["node_modules/@types", "src/typings"],
+		"useDefineForClassFields": true
+	},
+	"include": [
+		".eslintrc.cjs",
+		"src",
+		"src/typings/declarations.d.ts",
+		"./src/**/*",
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./src/**/*.d.ts",
+		"./node_modules/@types"
+	],
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		}
+	],
+	"types": ["vite/client, src/types"]
+}
