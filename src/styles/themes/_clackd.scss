@@ -1,0 +1,47 @@
+// brand fonts
+
+@font-face {
+	font-family: 'Codec Pro';
+	src: url('@assets/fonts/CodecPro-News.ttf');
+}
+
+@font-face {
+	font-family: 'Codec Pro';
+	font-weight: 700;
+	src: url('@assets/fonts/CodecPro-Bold.ttf');
+}
+
+@font-face {
+	font-family: 'Codec Pro';
+	font-style: italic;
+	src: url('@assets/fonts/CodecPro-NewsItalic.ttf');
+}
+
+$font-codec: 'Codec Pro', sans-serif;
+
+// brand colors
+
+$brand-black: #111;
+$brand-gray01: #676968;
+$brand-gray03: #939393;
+$brand-gray04: #c2c2c2;
+$brand-gray05: #f4f4f4;
+$brand-white: #f8f8f8;
+
+$brand-blue: #29a4ff;
+$brand-brown: #945a39;
+$brand-green: #198754;
+$brand-navy: #2b1979;
+$brand-neon-pink: #fa2567;
+$brand-orange: #e86701;
+$brand-pink: #f34b7f;
+$brand-purple: #773d83;
+$brand-red: #f72e2e;
+$brand-teal: #00edff;
+$brand-yellow: #e5cc39;
+$brand-gold: #ffc700;
+$brand-snow: #f6f9fc;
+
+// misc
+
+$aspect-ratio-deskmat: 1800/792;

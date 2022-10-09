@@ -1,0 +1,49 @@
+@use '@styles/colors' as color;
+@use '@styles/mixins' as mix;
+
+@use '@styles/themes/clackd' as clackd;
+
+body {
+	background-color: color.$color-white;
+	font: 300 1rem/1.625rem clackd.$font-codec;
+	position: relative;
+
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		left: 0;
+		position: absolute;
+		width: 100vw;
+	}
+
+	&::before {
+		background-color: rgba(clackd.$brand-snow, 0.8);
+		height: 45vh;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1;
+	}
+
+	&::after {
+		background-color: rgba(clackd.$brand-gray05, 0.95);
+		bottom: 0;
+		height: 50vh;
+		z-index: 0;
+	}
+}
+
+.slider {
+	$base: &;
+
+	bottom: 0;
+	display: flex;
+	gap: 2.5rem;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto 0;
+	max-height: 100vh;
+	max-width: 100%;
+	top: 0;
+	z-index: 1;
+}

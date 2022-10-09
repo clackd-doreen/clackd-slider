@@ -1,0 +1,106 @@
+@use '@styles/colors' as color;
+@use '@styles/mixins' as mix;
+
+@use '@styles/themes/clackd' as clackd;
+
+.slider-tabs {
+	$base: &;
+
+	left: 0;
+	margin: 0 auto;
+	max-width: calc(100% - 12.5rem);
+	position: relative;
+	right: 0;
+	width: 100vw;
+	z-index: 15;
+
+	&__swiper {
+		padding: 0 0.625rem;
+
+		.swiper-wrapper {
+			align-items: center;
+		}
+	}
+}
+
+.slide-tab {
+	$base: &;
+
+	align-self: stretch;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: auto;
+	justify-content: center;
+	left: 0;
+	margin: 0.625rem 0;
+	position: relative;
+	top: 0;
+	transform-origin: center;
+	z-index: 5;
+
+	&::before {
+		background-color: clackd.$brand-gold;
+		content: '';
+		height: 100%;
+		left: -0.25rem;
+		pointer-events: none;
+		position: absolute;
+		top: 0.25rem;
+		transition: all 0.3s ease;
+		width: 100%;
+		z-index: 1;
+	}
+
+	&:hover {
+		#{$base}__btn {
+			left: 0.25rem;
+			top: -0.25rem;
+		}
+	}
+
+	&.swiper-slide-active {
+		& > * {
+			background: clackd.$brand-gold;
+			box-shadow: inset -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.2);
+			color: clackd.$brand-black;
+			left: -0.25rem;
+			top: 0.25rem;
+
+			&:focus {
+				box-shadow: inset -0.25rem 0.25rem 0 rgba(0, 0, 0, 0.2);
+			}
+
+			&:focus-visible {
+				box-shadow: inset -0.5rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+			}
+		}
+
+		&:hover {
+			#{$base}__tab,
+			& > * {
+				left: -0.25rem;
+				top: 0.25rem;
+			}
+		}
+	}
+
+	&__btn {
+		background-color: color.$color-white;
+		border-radius: 0;
+		border: 0.0625rem solid clackd.$brand-black;
+		color: clackd.$brand-black;
+		cursor: pointer;
+		font: 700 1.25rem/1.875rem clackd.$font-codec;
+		left: 0;
+		padding: 1.125rem 0;
+		position: relative;
+		top: 0;
+		transition: all 0.3s ease;
+		z-index: 10;
+
+		&:hover {
+			color: clackd.$brand-black;
+		}
+	}
+}

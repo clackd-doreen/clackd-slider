@@ -1,0 +1,130 @@
+@use '@styles/colors' as color;
+@use '@styles/mixins' as mix;
+
+@use '@styles/themes/clackd' as clackd;
+
+@keyframes activateLightbox {
+	0% {
+		height: 0;
+		width: 0;
+	}
+
+	20% {
+		opacity: 1;
+	}
+
+	100% {
+		height: 100vh;
+		opacity: 1;
+		width: 100vw;
+	}
+}
+
+@keyframes deactivateLightbox {
+	0% {
+		height: 100vh;
+		width: 100vw;
+	}
+
+	40% {
+		opacity: 1;
+	}
+
+	100% {
+		height: 0;
+		opacity: 0;
+		visibility: hidden;
+		width: 0;
+	}
+}
+
+.slider-lightbox {
+	$base: &;
+
+	background-color: rgba(clackd.$brand-gray03, 0);
+	transition: background-color 0.2s ease-in-out;
+
+	&,
+	&::before,
+	&__content {
+		bottom: 0;
+		display: block;
+		height: 100vh;
+		left: 0;
+		pointer-events: none;
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: 100vw;
+		visibility: hidden;
+		z-index: -1;
+	}
+
+	&::before {
+		background: url('https://clackd.com/static/media/pattern_switches.a6bebc77.svg')
+			repeat 0 0;
+		content: '';
+
+		opacity: 0;
+		position: absolute;
+		transition: opacity 0.2s ease-in-out;
+	}
+
+	&__content {
+		cursor: pointer;
+	}
+
+	&__image {
+		height: 100vh;
+		left: 50%;
+		object-fit: contain;
+		pointer-events: none;
+		position: absolute;
+		top: 50%;
+		transform-origin: center center;
+		transform: translate(-50%, -50%);
+		width: 100vw;
+	}
+
+	&--toggled,
+	&--toggled::before,
+	&--toggled #{$base}__content {
+		pointer-events: all;
+		visibility: visible;
+		z-index: 20;
+	}
+
+	&--toggled {
+		background-color: rgba(clackd.$brand-gray03, 0.85);
+		transition: background-color 0.4s ease-in-out;
+
+		&::before {
+			opacity: 0.075;
+			transition: opacity 0.4s ease-in-out;
+			transition-delay: 0.25s;
+		}
+
+		#{$base}__image {
+			@include mix.outputAnimations(activateLightbox, 0.85s);
+			z-index: 20;
+		}
+	}
+
+	&--deactivated {
+		background-color: rgba(clackd.$brand-gray03, 0);
+		pointer-events: none;
+		transition: background-color 0.45s ease-in-out;
+		transition-delay: 0.45s;
+
+		&::before {
+			opacity: 0;
+			transition: background-color 0.85s ease-in-out;
+			transition-delay: 0.3s;
+		}
+
+		#{$base}__image {
+			@include mix.outputAnimations(deactivateLightbox, 1.25s);
+			z-index: 10;
+		}
+	}
+}
