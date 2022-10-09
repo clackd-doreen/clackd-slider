@@ -26,30 +26,34 @@ cheers
 - react 18
 - vite: gotta go fast
 - routing: react router
-- type checking: typescript
-- linter:  estlint + stylelint
 - styling: scss modules + styled components
 - ui development: storybook
-- forms: react hook forms
+- type checking: typescript
+- linting:  estlint + stylelint
 - debugging: vs code configs
+- seo: react-helmet
+- forms: react hook forms
 
 
 ### future roadmap plans include:
 
-- testing (unit / e2e testing): jest + cypress + react testing library
+- testing (unit / e2e testing): jest + cypress + testing library
 - state management: react query or redux
-- animation: react spring
+- animation: framer motion or react spring
 - automating css (autoprefixer, etc): postcss
 - code formatter: prettier
-- git hooks: husky or github actions
+- git hooks: husky
+- integration: github actions
 - bundling: rollup
-- headless cms: (if needed) contentful
+- requests: axios
+- headless cms (if needed): contentful
+- three js??
 
 + features unstyled components for headless ui
 
 
-for once, not a project that isn't bootstraped with create react app 
+for once, this is a project that isn't bootstraped with create react app 
 everything's from scratch otherwise, with a work flow that's perfect for a derp
-we don't use component / css libraries here 😤 and we're making our own boilerplate
+we don't use component / css libraries here 😤 
 
 yee howdy
