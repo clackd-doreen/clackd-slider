@@ -32,7 +32,7 @@ const generateSlidesList = (list: string[]) => {
 		if (!fileName)
 			throw new Error('image src url does not exist')
 
-		const [title] = fileName.replaceAll('%20', ' ')
+		const [title] = fileName.replaceAll('%20', ' ').replaceAll('e%CC%81', 'é')
 			.split(' - ')[1]
 			.split('.')
 

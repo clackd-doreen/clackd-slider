@@ -5,7 +5,7 @@ import type { HandleSliderProps } from '../src/Slider.types'
 
 // useComponent will handle all events that are related to the component
 
-// type SliderEventsList = keyof HandleSliderProps
+type SliderEventsList = keyof HandleSliderProps
 
 const handleSlider = (
 	props: HandleSliderProps
@@ -39,7 +39,8 @@ const handleSlider = (
 	// handlers.onBlur()
 	const handleBlur = () => ''
 
-	const combineHandlers = () => {
+	const combineHandlers = (type: SliderEventsList) => {
+		console.log(`handler type: ${type}`)
 		// const target = new EventTarget()
 		// target.addEventListener('click', event => console.log(event))
 		// console.log(target)
@@ -49,7 +50,7 @@ const handleSlider = (
 	const createHandleClick = () => {
 		// console.log('handle slider click')
 		// console.log(event)
-		eventHandlers.handleClick(() => combineHandlers())
+		eventHandlers.handleClick(() => combineHandlers('onClick'))
 		// console.log(event)
 	}
 
@@ -61,7 +62,7 @@ const handleSlider = (
 	const createHandleKeyPress = () => {
 		// console.log(event.key)
 		// console.log('handle slider key press')
-		eventHandlers.handleKeyPress('Enter', () => combineHandlers())
+		eventHandlers.handleKeyPress('Enter', () => combineHandlers('onKeyPress'))
 	}
 
 	return {

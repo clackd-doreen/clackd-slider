@@ -5,7 +5,6 @@
 
 @keyframes activeSlideOpacity {
 	0% {
-		animation-delay: 0.25s;
 		opacity: 0.35;
 	}
 
@@ -60,29 +59,45 @@
 
 @keyframes activeSlideOnChange {
 	0% {
-		box-shadow: 0px 12px 22px -4px rgba(0, 0, 0, 0),
-			0px 8px 16px -2px rgba(0, 0, 0, 0),
-			0.125rem 0.125rem 0.25em -2px rgba(0, 0, 0, 0),
-			0px 0px 30px -8px rgba(0, 0, 0, 0);
-		animation-timing-function: ease-in;
+		box-shadow: 0 0.75rem 1.375rem -0.25rem rgba(clackd.$brand-black, 0),
+			0 0.5rem 1rem -0.125rem rgba(clackd.$brand-black, 0),
+			0.125rem 0.125rem 0.25em -0.125rem rgba(clackd.$brand-black, 0),
+			0 0 1.875rem -0.5rem rgba(clackd.$brand-black, 0);
+		height: 85%;
 		transform: scale(0.975);
 	}
 
-	50% {
-		box-shadow: rgba(0, 0, 0, 0) 0px 10px 15px -3px,
-			rgba(0, 0, 0, 0) 0px 4px 6px -2px;
+	// 10% {
+	// 	height: 90%;
+	// }
+
+	25% {
+		// height: 100%;
+		transform: scale(0.975);
 	}
 
-	75% {
+	37% {
+		height: 100%;
+	}
+
+	50% {
+		box-shadow: rgba(clackd.$brand-black, 0) 0 0.625rem 0.9375rem -0.25rem,
+			rgba(clackd.$brand-black, 0) 0 0.25rem 0.375rem -0.125rem;
+		height: 100%;
 		transform: scale(1.0125);
 	}
 
+	75% {
+		height: 100%;
+		transform: scale(1.025);
+	}
+
 	100% {
-		animation-timing-function: ease;
-		box-shadow: 0px 12px 20px -6px rgba(0, 0, 0, 0.2),
-			0px 8px 18px -4px rgba(0, 0, 0, 0.1625),
-			0.125rem 0.125rem 0.25em -2px rgba(0, 0, 0, 0.0875),
-			0px 0px 24px -8px rgba(0, 0, 0, 0.4);
+		box-shadow: 0 0.75rem 1.25rem -0.375rem rgba(clackd.$brand-black, 0.1),
+			0 0.5rem 1.125rem -0.25rem rgba(clackd.$brand-black, 0.0875),
+			0.125rem 0.125rem 0.25em -0.125rem rgba(clackd.$brand-black, 0.04375),
+			0 0 1.5rem -0.5rem rgba(clackd.$brand-black, 0.1);
+		height: 100%;
 		transform: scale(1.025);
 	}
 }
@@ -90,16 +105,19 @@
 @keyframes adjacentSlideOnChange {
 	0% {
 		animation-timing-function: ease-in-out;
+		// height: 100%;
 		transform: scale(1.02, 1.015);
 	}
 
 	80% {
 		animation-timing-function: ease-out;
+		// height: 92%;
 		transform: scale(1.0125);
 	}
 
 	100% {
 		animation-timing-function: ease;
+		// height: 85%;
 		transform: scale(1);
 	}
 }
@@ -189,8 +207,12 @@
 	width: 100vw;
 	z-index: 2;
 
-	&__swiper .swiper-wrapper {
-		align-items: center;
+	&__swiper {
+		padding-bottom: 1.875rem;
+
+		.swiper-wrapper {
+			align-items: center;
+		}
 	}
 }
 
@@ -200,34 +222,43 @@
 	&__body {
 		aspect-ratio: clackd.$aspect-ratio-deskmat;
 		display: flex;
-		display: flex;
 		height: 100%;
 		overflow: hidden;
 		position: relative;
 		transform-origin: center;
+		will-change: height, opacity, transform;
 		z-index: 6;
 
 		&::after {
-			background-color: clackd.$brand-gray01;
+			aspect-ratio: clackd.$aspect-ratio-deskmat;
+			background-color: clackd.$brand-gray04;
 			content: '';
 			display: block;
 			height: 100%;
+			max-width: max-content;
+			// opacity: 0;
 			opacity: 1;
 			position: absolute;
+			top: 0;
+			transform-origin: center;
 			width: 100%;
 			z-index: 0;
+		}
+
+		& > #{$base}__image,
+		& > #{$base}__toggle {
+			aspect-ratio: clackd.$aspect-ratio-deskmat;
+			box-shadow: 0 0 0 clackd.$brand-black;
+			transform-origin: center;
+			will-change: opacity, transform;
 		}
 	}
 
 	&__image {
-		aspect-ratio: clackd.$aspect-ratio-deskmat;
-		box-shadow: 0 0 0 #000;
 		height: 100%;
 		object-fit: cover;
 		position: relative;
-		transform-origin: center;
 		width: auto;
-		will-change: opacity, transform;
 		z-index: 10;
 	}
 
@@ -246,29 +277,38 @@
 	height: auto;
 	justify-content: center;
 	transform-origin: center;
-	transition: transform 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 
 	&.swiper-slide-active {
-		overflow: visible;
+		// overflow: visible;
+		cursor: pointer;
 		position: sticky;
 		z-index: 13;
 
 		&:hover {
-			cursor: pointer;
 			transform: scale(1.009875);
 		}
 
 		#{$base}__body {
-			@include mix.outputAnimations(activeSlideOnChange);
+			@include mix.output-animations(
+				activeSlideOnChange,
+				0.9s,
+				cubic-bezier(0.42, 0.04, 0.7, 0.41)
+					// cubic-bezier(0.48, 0, 0.88, 0.52)
+			);
+			// animation-delay: 0.05s;
+			height: 85%;
 			justify-content: center;
 			margin: 0 -50%;
+			transform: scale(0.975);
 			z-index: 10;
-		}
 
-		#{$base}__image {
-			@include mix.outputAnimations(activeSlideOpacity);
-			margin: 0 -100%;
-			z-index: 15;
+			& > #{$base}__image,
+			& > #{$base}__toggle {
+				@include mix.output-animations(activeSlideOpacity);
+				margin: 0 -100%;
+				z-index: 15;
+			}
 		}
 	}
 
@@ -277,57 +317,53 @@
 		cursor: auto;
 
 		#{$base}__body {
-			@include mix.outputAnimations(adjacentSlideOnChange);
-			height: 65%;
+			@include mix.output-animations(adjacentSlideOnChange);
+			height: 80%;
 			pointer-events: none;
 			width: 100%;
-		}
-
-		#{$base}__image {
-			height: 100%;
-		}
-
-		#{$base}__toggle {
-			pointer-events: none;
 		}
 	}
 
 	&.swiper-slide-next {
 		#{$base}__body {
 			justify-content: flex-end;
-		}
 
-		#{$base}__image {
-			transform-origin: center right;
+			& > #{$base}__image,
+			& > #{$base}__toggle {
+				transform-origin: center right;
 
-			@include mix.outputAnimations(
-				slideOutRight,
-				0.7s,
-				cubic-bezier(0.6, 0.05, 0.8, 0.65)
-			);
+				@include mix.output-animations(
+					slideOutRight,
+					0.8s,
+					cubic-bezier(0.6, 0.05, 0.8, 0.65)
+				);
+				animation-delay: 0.0125s;
+			}
 		}
 	}
 
 	&.swiper-slide-prev {
 		#{$base}__body {
 			justify-content: flex-start;
-		}
 
-		#{$base}__image {
-			transform-origin: center left;
+			& > #{$base}__image,
+			& > #{$base}__toggle {
+				transform-origin: center left;
 
-			@include mix.outputAnimations(
-				slideOutLeft,
-				0.7s,
-				cubic-bezier(0.6, 0.05, 0.8, 0.65)
-			);
+				@include mix.output-animations(
+					slideOutLeft,
+					0.8s,
+					cubic-bezier(0.6, 0.05, 0.8, 0.65)
+				);
+				animation-delay: 0.0125s;
+			}
 		}
 	}
 
 	&:not(.swiper-slide-active):not(.swiper-slide-next):not(.swiper-slide-prev) {
 		#{$base}__body {
-			@include mix.outputAnimations(inactiveSlideOnChange);
-			height: 50%;
+			@include mix.output-animations(inactiveSlideOnChange);
+			height: 60%;
 			pointer-events: none;
 			width: 100%;
 			z-index: 2;
@@ -335,10 +371,11 @@
 			&::after {
 				opacity: 0.5;
 			}
-		}
 
-		#{$base}__image {
-			@include mix.outputAnimations(inactiveSlideOpacity);
+			& > #{$base}__image,
+			& > #{$base}__toggle {
+				@include mix.output-animations(inactiveSlideOpacity);
+			}
 		}
 	}
 }

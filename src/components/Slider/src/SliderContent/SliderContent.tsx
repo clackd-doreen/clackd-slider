@@ -1,6 +1,7 @@
 import React, {
 	forwardRef,
 	useCallback,
+	// useState,
 } from 'react'
 
 import {
@@ -8,6 +9,7 @@ import {
 	SwiperSlide,
 } from 'swiper/react'
 
+// import { Component } from '@components/Structure/Component'
 import { getImageDetails } from '@utils/helpers/elements'
 import { useSlider } from '@components/Slider/src'
 
@@ -50,6 +52,7 @@ const defaultProps: Partial<SliderContentProps> = {
 const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 	(props, ref) => {
 		const {
+			children,
 			className,
 			displayAs,
 			isDisabled,
@@ -75,6 +78,10 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 			...attributes,
 		}
 
+		// component-specific
+
+		// const [slideItemClasses, setSlideItemClasses] = useState('slide-item')
+
 		const {
 			controls: {
 				content: {
@@ -87,10 +94,31 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 			navigation,
 			sharedControlOptions,
 			sliderInfo: {
+				// active: activeSlide,
 				initial: initialSlide,
 				slides,
 			},
 		} = useSlider()
+
+		// const getSlideItemClasses = useCallback((
+		// 	// direction: 'next' | 'prev',
+		// 	index: number
+		// ) => {
+		// 	let directionalClass = ''
+
+		// 	const i = index + 1
+
+		// 	if (activeSlide + 2 === i) directionalClass = 'swiper-slide-next-next'
+		// 	if (activeSlide - 2 === i) directionalClass = 'swiper-slide-prev-prev'
+
+		// 	console.log(`active: ${activeSlide}`)
+		// 	console.log(i)
+
+		// 	return ([
+		// 		'slide-item',
+		// 		directionalClass,
+		// 	] as string[]).join(' ')
+		// }, [activeSlide])
 
 		const handleImageClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
 			const target = event.target as HTMLImageElement
@@ -102,7 +130,7 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 			handleLightboxToggle(clickedImageDetails)
 		}, [])
 
-		const handleImageKeyPress = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
+		const handleImageKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
 			const target = event.target as HTMLImageElement
 			const pressedImageDetails = getImageDetails<HTMLImageElement>(
 				target,
@@ -121,7 +149,12 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 			...controller,
 			grabCursor: true,
 			initialSlide,
-			onActiveIndexChange: (swiper: SwiperClass) => handleSetActiveSlide(swiper.realIndex),
+			onActiveIndexChange: (swiper: SwiperClass) => {
+				handleSetActiveSlide(swiper.realIndex)
+				// const slideItemClassList = getSlideItemClasses(swiper.realIndex)
+				// setSlideItemClasses(slideItemClassList)
+				// console.log(slideItemClassList)
+			},
 			onSwiper: (swiper: SwiperClass) => handleSwiper(swiper),
 			preloadImages: true,
 			slidesPerView: count,
@@ -137,12 +170,15 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 				<Swiper className="slider-content__swiper" { ...swiperContentOptions }>
 					{ slides.map((slide, i) => (
 						<SwiperSlide className="slide-item" key={ `content-${i}` }>
+							{/* <div className="slide-item__heading">
+								<h2 className="slide-item__title">{ slide.title }</h2>
+							</div> */}
 							<div className="slide-item__body">
 								<div
 									aria-hidden="true"
 									className="slide-item__toggle"
 									onClick={ event => handleImageClick(event) }
-									onKeyPress={ event => handleImageKeyPress(event) }
+									onKeyDown={ event => handleImageKeyDown(event) }
 									role="presentation"
 								>
 									<img
@@ -155,6 +191,7 @@ const SliderContent = forwardRef<HTMLDivElement, SliderContentPropsList>(
 						</SwiperSlide>
 					))}
 				</Swiper>
+				{ children }
 			</div>
 		)
 	}

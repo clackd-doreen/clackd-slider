@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react'
 import { SwiperSlide } from 'swiper/react'
 
+// import { Component } from '@components/Structure/Component'
 import { handleSlider } from '@components/Slider/utils'
 import { useSlider } from '@components/Slider/src'
 
 import {
-	createClassList,
+	createClassList,	// change to generateUtilityClasses?
 	filterProps,
 	getDefaultProps,
 	getOptionalAttributes,

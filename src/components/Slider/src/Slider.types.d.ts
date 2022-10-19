@@ -1,21 +1,24 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import type { Swiper as SwiperClass } from 'swiper'
+// import type { SwiperProps } from 'swiper/react'
 
-import type { ArrowVariants } from '@/types/icons'
-import type { RequireFields } from '@/types/fields'
+import type { ArrowVariants } from '@typings/icons'
+import type { RequireFields } from '@typings/fields'
 
 import type {
 	FocusEvents,
 	KeyboardEvents,
 	MouseEvents,
-} from '@/types/events'
+} from '@typings/events'
 
 import type {
 	Alignment,
 	CommonProps,
 	Orientation,
 	Shapes,
-} from '@/types/props-common'
+	// ComponentSizes,
+	// Directions,
+} from '@typings/props-common'
 
 
 // core
@@ -38,6 +41,9 @@ type SliderProps = RequireFields<CommonProps, 'children'> & {
 
 	// sets orientation of the slider
 	direction?: Orientation
+
+	// local directory of where images live
+	directory?: string[] | string
 
 	// enables navigation through the slider via keyboard
 	enableKeyboardControl?: boolean
@@ -121,7 +127,7 @@ type SliderArrowProps = Omit<SliderArrowsProps, 'children'> & {
 }
 
 type SliderDotProps = SliderDotsProps & {
-	//
+	index: number
 }
 
 type SliderTabProps = SliderTabsProps & {
@@ -131,15 +137,19 @@ type SliderTabProps = SliderTabsProps & {
 
 // types: subcomponents - orphans
 
-type SliderContentProps = SharedControlOptions & {
+type SliderContentProps = Pick<CommonProps, 'children'> & SharedControlOptions & {
 	//
 }
 
-type SliderIndicatorProps = Omit<CommonProps, 'children'> & {
+type SliderHeaderProps = CommonProps & {
 	//
 }
 
-type SliderLightboxProps = Omit<CommonProps, 'children'> & {
+type SliderIndicatorProps = SharedControlOptions & {
+	//
+}
+
+type SliderLightboxProps = CommonProps & {
 	// comments
 	isLoading?: boolean
 }
@@ -163,6 +173,7 @@ interface SliderTabPropsList extends SliderTabProps, HandleSliderProps {}
 
 interface SliderPropsList extends SliderProps {}
 interface SliderContentPropsList extends SliderContentProps {}
+interface SliderHeaderPropsList extends SliderContentProps {}
 interface SliderIndicatorPropsList extends SliderIndicatorProps {}
 interface SliderLightboxPropsList extends SliderLightboxProps {}
 
@@ -203,6 +214,8 @@ export type {
 	// subcomponents - orphans
 	SliderContentProps,
 	SliderContentPropsList,
+	SliderHeaderProps,
+	SliderHeaderPropsList,
 	SliderIndicatorProps,
 	SliderIndicatorPropsList,
 	SliderLightboxProps,

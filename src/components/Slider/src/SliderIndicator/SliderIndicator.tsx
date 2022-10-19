@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
 
+// import { Component } from '@components/Structure/Component'
 import { useSlider } from '@components/Slider/src'
 
 import {
@@ -43,12 +44,18 @@ const SliderIndicator = forwardRef<HTMLDivElement, SliderIndicatorPropsList>(
 			...attributes,
 		}
 
+		// component-specific
+
 		const {
 			sliderInfo: {
 				active: activeSlide,
 				total: totalSlides,
 			},
 		} = useSlider()
+
+		const currentSlide = activeSlide === 0
+			? totalSlides
+			: activeSlide
 
 		return (
 			<div
@@ -57,7 +64,7 @@ const SliderIndicator = forwardRef<HTMLDivElement, SliderIndicatorPropsList>(
 				ref={ ref }
 			>
 				<p className="slider-indicator__group">
-					<span className="slider-indicator__active">{ activeSlide }</span>
+					<span className="slider-indicator__active">{ currentSlide }</span>
 					of
 					<span className="slider-indicator__total">{ totalSlides }</span>
 				</p>

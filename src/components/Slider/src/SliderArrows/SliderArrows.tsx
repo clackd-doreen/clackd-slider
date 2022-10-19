@@ -1,9 +1,11 @@
 import React, { forwardRef } from 'react'
 
+// import { Component } from '@components/Structure/Component'
 import { SliderArrow } from './SliderArrow'
 
 import {
 	createClassList,
+	filterChildrenByDisplayName,
 	getDefaultProps,
 	getOptionalAttributes,
 } from '@utils/helpers/components'
@@ -44,6 +46,18 @@ const SliderArrows = forwardRef<HTMLDivElement, SliderArrowsPropsList>(
 			...attributes,
 		}
 
+		const allowedSubcomponents = [
+			'SliderArrows',
+			'SliderContent',
+			'SliderDots',
+			'SliderIndicator',
+			'SliderLightbox',
+			'SliderTabs',
+			'SliderThumbs',
+		]
+
+		const filteredChildren = filterChildrenByDisplayName(children, allowedSubcomponents)
+
 		return (
 			<div
 				{ ...args }
@@ -51,7 +65,7 @@ const SliderArrows = forwardRef<HTMLDivElement, SliderArrowsPropsList>(
 				ref={ ref }
 			>
 				<SliderArrow icon={ icon } type="prev" />
-				{ children }
+				{ filteredChildren }
 				<SliderArrow icon={ icon } type="next" />
 			</div>
 		)

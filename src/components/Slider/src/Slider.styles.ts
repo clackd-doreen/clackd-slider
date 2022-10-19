@@ -1,19 +1,34 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// import {
+// 	SliderArrow,
+// 	SliderArrows
+// } from './SliderArrows'
+
+// import {
+// 	SliderDot,
+// 	SliderDots
+// } from './SliderDots'
+
+// import {
+// 	darken,
+// 	lighten,
+// } from 'polished'
+
 import {
 	SliderBase,
 	defaultProps,
 } from './SliderBase'
 
-import type { RequireFields } from '@/types/fields'
+import type { RequireFields } from '@typings/fields'
 import type { SliderProps } from './Slider.types'
 
 import type {
 	Alignment,
 	// ComponentSizes,
 	// SpacingRem,
-} from '@/types/props-common'
+} from '@typings/props-common'
 
 import styles from './Slider.module.scss'
 

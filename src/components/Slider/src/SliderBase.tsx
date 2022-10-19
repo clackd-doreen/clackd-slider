@@ -7,6 +7,7 @@ import React, {
 	useState,
 } from 'react'
 
+// import { Component } from '@components/Structure/Component'
 import { SliderContext } from './Slider.context'
 import { getImageUrls } from '@utils/helpers/files'
 
@@ -17,6 +18,7 @@ import {
 
 import {
 	createClassList,
+	filterChildrenByDisplayName,
 	getChildrenDisplayNames,
 	getDefaultProps,
 	getOptionalAttributes,
@@ -35,6 +37,9 @@ import type {
 } from './Slider.types'
 
 import 'swiper/css'
+// import 'swiper/css/controller'
+// import 'swiper/css/keyboard'
+// import 'swiper/css/mousewheel'
 
 
 const defaultProps: Partial<SliderProps> = {
@@ -46,8 +51,46 @@ const defaultProps: Partial<SliderProps> = {
 	loopSlides: true,
 }
 
-const globs = import.meta.glob('@components/Slider/assets/*')
 
+// type DynamicImportType = () => Promise<{ default: React.ComponentType<any> }>
+// type LazyComponentType = React.LazyExoticComponent<React.ComponentType<any>>
+
+const globsList = import.meta.glob('@assets/images/slider/*')
+
+// const getImageUrl = (fileName: string) => (
+//	new URL(`/images/${fileName}.jpg`,
+//	import.meta.url).href
+// )
+
+// const useImage = (fileName: string) => {
+// 	const [error, setError] = useState(null)
+// 	const [image, setImage] = useState(null)
+// 	const [loading, setLoading] = useState(true)
+
+// 	useEffect(() => {
+// 		const fetchImage = async () => {
+// 			try {
+//			 	// change relative path to suit your needs
+// 				const response = await import(`/images/${fileName}`)
+// 				setImage(response.default)
+// 			} catch (err) {
+// 				setError(err)
+// 			} finally {
+// 				setLoading(false)
+// 			}
+// 		}
+
+// 		fetchImage()
+// 	}, [fileName])
+
+// 	return {
+// 		error,
+// 		image,
+// 		loading,
+// 	}
+// }
+
+type GlobsList = Record<string, () => Promise<unknown>>
 
 const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 	(props, ref) => {
@@ -67,22 +110,6 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			...rest
 		} = getDefaultProps<SliderProps>(defaultProps, props)
 
-		const classes = createClassList(
-			'slider',
-			'',
-			{ className }
-		)
-
-		const otherAttributes = {
-			'data-loading': isLoading,
-		} as Partial<SliderPropsList>
-
-		const attributes = getOptionalAttributes<Partial<SliderPropsList>>(props, otherAttributes)
-
-		const args = {
-			...rest,
-			...attributes,
-		}
 
 		// component-specific
 
@@ -101,6 +128,8 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			swiperTabs,
 		} = useSliderControls(initialSlide)
 
+		const [contentHasLoaded, toggleContentLoaded] = useState(false)
+		const [globs, setGlobs] = useState<GlobsList>({})
 		const [images, setImages] = useState<string[]>([])
 		const [lightbox, setLightbox] = useState<SingleLightbox>(
 			{} as SingleSlideWithDimensions
@@ -151,8 +180,15 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			swiperTabs,
 		])
 
+		useEffect(() => {
+			// const globsTest = import.meta.glob('@components/Data/Slider/demo/*')
+			// setGlobs(globsTest)
+			setGlobs(globsList)
+		}, [])
+
 		// sets the list of image urls
 		useEffect(() => {
+			console.log(globs)
 			if (Object.keys(globs).length === 0) return
 			getImageUrls(globs, setImages)
 		}, [globs])
@@ -163,11 +199,35 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 				const slidesList = generateSlidesList(images)
 				setSlides(slidesList)
 				setTotalSlides(slidesList.length)
+				setTimeout(() => {
+					toggleContentLoaded(true)
+				}, 2000)
 			}
 		}, [images])
 
 		const contentControllers = getControllersList()
 		console.log(contentControllers)
+		// content: controller swiperDots
+		// dots: controller swiperTabs
+		// tabs: controller swiperContent
+
+		// const controls = {
+		// 	content: {
+		// 		// controller: { control: [swiperDots, swiperTabs] },
+		// 		// controller: { control: contentControllers },
+		// 		controller: { control: swiperDots },
+		// 		onSwiper: handleSetSwiperContentInstance,
+		// 	},
+		// 	dots: {
+		// 		// controller: { control: swiperTabs },
+		// 		controller: { control: swiperTabs },
+		// 		onSwiper: handleSetSwiperDotsInstance,
+		// 	},
+		// 	tabs: {
+		// 		controller: { control: swiperContent },
+		// 		onSwiper: handleSetSwiperTabsInstance,
+		// 	},
+		// }
 
 		const controls = {
 			content: {
@@ -192,6 +252,7 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 		const centerSlidesOptions = {
 			centeredSlides: true,
 			centeredSlidesBounds: true,
+			// centerInsufficientSlides: true,
 		} as SwiperProps
 
 		const loopAdditionalSlides = totalSlides !== 0
@@ -202,12 +263,16 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			loop: true,
 			loopAdditionalSlides,
 			loopPreventsSlide: true,
+			// loopedSlides,
+			// loopFillGroupWithBlank: true,
 		} as SwiperProps
 
 		const sharedControlOptions: SwiperProps = {
 			...centerSlidesOptions,
 			...loopedOptions,
+			allowTouchMove: false,
 			direction,
+			grabCursor: false,
 			preventInteractionOnTransition: true,
 			speed: 600,
 			touchRatio: 0.2,
@@ -222,6 +287,42 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			slides,
 			total: totalSlides,
 		}
+
+		const fadeOutClass = contentHasLoaded
+			? 'animate--fadeOut'
+			: ''
+
+		const classes = createClassList(
+			'slider',
+			'',
+			{ loading: !contentHasLoaded },
+			{ className }
+			// { ' animate--fadeIn': contentHasLoaded },
+		)
+
+		const otherAttributes = {
+			'data-loading': isLoading,
+		} as Partial<SliderPropsList>
+
+		const attributes = getOptionalAttributes<Partial<SliderPropsList>>(props, otherAttributes)
+
+		const args = {
+			...rest,
+			...attributes,
+		}
+
+		const allowedSubcomponents = [
+			'SliderArrows',
+			'SliderContent',
+			'SliderDots',
+			'SliderHeader',
+			'SliderIndicator',
+			'SliderLightbox',
+			'SliderTabs',
+			'SliderThumbs',
+		]
+
+		const filteredChildren = filterChildrenByDisplayName(children, allowedSubcomponents)
 
 		return (
 			<SliderContext.Provider
@@ -239,12 +340,20 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 					sliderInfo,
 				} }
 			>
+				<div className={ `loader loader--fullPage ${fadeOutClass}` }>
+					<div className="loader__wrapper">
+						<div className="loader__item"><span>...loading</span></div>
+						<div className="loader__item" />
+						<div className="loader__item" />
+					</div>
+				</div>
+
 				<div
 					{ ...args }
 					className={ classes }
 					ref={ ref }
 				>
-					{ children }
+					{ filteredChildren }
 				</div>
 			</SliderContext.Provider>
 		)

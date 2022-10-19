@@ -1,12 +1,13 @@
 import React, { forwardRef } from 'react'
 import { SwiperSlide } from 'swiper/react'
 
+// import { Component } from '@components/Structure/Component'
 import { handleSlider } from '@components/Slider/utils'
 import { useSlider } from '@components/Slider/src'
 import { toTitleCase } from '@utils/helpers'
 
 import {
-	createClassList,
+	createClassList,	// change to generateUtilityClasses?
 	filterProps,
 	getDefaultProps,
 	getOptionalAttributes,
@@ -33,6 +34,7 @@ const SliderDot = forwardRef<HTMLButtonElement, SliderDotPropsList>(
 			displayAs,
 			isDisabled,
 			// specific
+			index,
 			...rest
 		} = getDefaultProps<SliderDotProps>(defaultProps, props)
 
@@ -46,7 +48,7 @@ const SliderDot = forwardRef<HTMLButtonElement, SliderDotPropsList>(
 
 		const handlers = {
 			...props as HandleSliderProps,
-			...{ onClick: onDotClick },
+			// ...{ onClick: onDotClick },
 		}
 
 		const attributes = getOptionalAttributes<Partial<SliderDotPropsList>>(props, {}),
@@ -69,7 +71,7 @@ const SliderDot = forwardRef<HTMLButtonElement, SliderDotPropsList>(
 						{ ...args }
 						aria-label={ label }
 						className="slide-dot__btn"
-						onClick={ onDotClick }
+						onClick={ () => onDotClick(index) }
 						ref={ ref }
 						type="button"
 					>

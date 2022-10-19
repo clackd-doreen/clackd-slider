@@ -1,19 +1,32 @@
 @use '@styles/colors' as color;
 @use '@styles/mixins' as mix;
+@use '@styles/variables' as var;
 
 @use '@styles/themes/clackd' as clackd;
 
 .slider-indicator {
 	$base: &;
 
-	color: clackd.$brand-black;
-	font: 700 1.25rem/1.875rem clackd.$font-codec;
+	color: clackd.$brand-gray03;
+	font: 300 1rem/1.625rem clackd.$font-codec;
+	letter-spacing: 0.2em;
 	position: relative;
+	text-transform: uppercase;
 	z-index: 1;
 
 	&__group {
 		display: flex;
 		gap: 0.75rem;
 		justify-content: center;
+	}
+
+	@media (min-width: var.$laptop) {
+		font-size: 1.125rem;
+		line-height: 1.625rem;
+	}
+
+	@media (min-width: var.$desktop) {
+		font-size: 1.25rem;
+		line-height: 1.875rem;
 	}
 }

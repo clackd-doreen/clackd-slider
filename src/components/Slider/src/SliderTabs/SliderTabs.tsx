@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react'
 import { Controller } from 'swiper'
 import { Swiper } from 'swiper/react'
 import { SliderTab } from './SliderTab'
+// import { Component } from '@components/Structure/Component'
 
 import { getControllerIfControlExists } from '@components/Slider/utils'
 import { useSlider } from '@components/Slider/src'
@@ -52,6 +53,8 @@ const SliderTabs = forwardRef<HTMLDivElement, SliderTabsPropsList>(
 			...rest,
 			...attributes,
 		}
+
+		// component-specific
 
 		const {
 			controls: {

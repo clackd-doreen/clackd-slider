@@ -8,6 +8,7 @@ export {
 
 export { SliderContent } from './SliderContent'
 export { SliderDots } from './SliderDots'
+export { SliderHeader } from './SliderHeader'
 export { SliderIndicator } from './SliderIndicator'
 export { SliderLightbox } from './SliderLightbox'
 export { SliderTabs } from './SliderTabs'

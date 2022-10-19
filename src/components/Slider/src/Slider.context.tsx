@@ -3,6 +3,7 @@ import React, {
 	useContext,
 } from 'react'
 
+// import type { Swiper as SwiperClass } from 'swiper'
 import type { SwiperProps } from 'swiper/react'
 
 import type {
@@ -26,7 +27,7 @@ type SliderContextData = {
 	navigation: NavigationControlGroup
 	onArrowNextClick: () => void
 	onArrowPrevClick: () => void
-	onDotClick: () => void
+	onDotClick: (index: number) => void
 	onTabClick: () => void
 	sharedControlOptions?: SwiperProps
 	sliderInfo: {

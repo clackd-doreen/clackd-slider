@@ -44,7 +44,7 @@
 		width: 1.75rem;
 
 		&::after {
-			background-color: color.$color-white;
+			background-color: transparent;
 			bottom: 0;
 			content: '';
 			display: block;

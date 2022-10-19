@@ -1,35 +1,201 @@
 @use '@styles/colors' as color;
 @use '@styles/mixins' as mix;
+@use '@styles/variables' as var;
 
 @use '@styles/themes/clackd' as clackd;
 
+@keyframes loadingB {
+	0% {
+		width: 19rem;
+	}
+
+	50% {
+		width: 5rem;
+	}
+
+	100% {
+		width: 19rem;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		pointer-events: none;
+	}
+	100% {
+		opacity: 1;
+		pointer-events: all;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+		pointer-events: all;
+	}
+	100% {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+@keyframes slide {
+	0% {
+		transform: translateX(-25%);
+	}
+	100% {
+		transform: translateX(25%);
+	}
+}
+
+.animate--fade-in,
+.animate--fadeIn {
+	// @include mix.output-animations(fadeIn, 0.4s);
+	opacity: 1;
+	transform: opacity 0.5s ease-in-out;
+}
+
+.animate--fadeOut {
+	@include mix.output-animations(fadeOut, 0.4s);
+	animation-delay: 0.2s;
+}
+
 body {
-	background-color: color.$color-white;
+	// background-color: clackd.$brand-black;
+	background-color: color.$white;
 	font: 300 1rem/1.625rem clackd.$font-codec;
 	position: relative;
+}
 
-	&::before,
-	&::after {
-		content: '';
-		display: block;
-		left: 0;
-		position: absolute;
-		width: 100vw;
+.loader {
+	$base: &;
+
+	position: fixed;
+	z-index: 100;
+
+	&--fullPage {
+		background-color: clackd.$brand-snow;
+
+		&,
+		&::before,
+		&::after {
+			height: 100vh;
+			left: 0;
+			top: 0;
+			width: 100vw;
+		}
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			transition: opacity 0.4s ease-in-out;
+		}
+
+		&::before {
+			background: url('https://clackd.com/static/media/pattern_switches.a6bebc77.svg')
+				repeat 0 0;
+			opacity: 0.0375;
+			z-index: 105;
+		}
+
+		&::after {
+			background-color: clackd.$brand-snow;
+			opacity: 0.5;
+			mix-blend-mode: overlay;
+			z-index: 110;
+		}
 	}
 
-	&::before {
-		background-color: rgba(clackd.$brand-snow, 0.8);
-		height: 45vh;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: 1;
+	&__wrapper {
+		// display: flex;
+		// gap: 1.875rem;
+		// justify-content: center;
+		// left: 50%;
+		// position: absolute;
+		// top: 50%;
+		// transform: translate(-50%, -50%);
+		// width: 65.25rem;
+		// z-index: 120;
 	}
 
-	&::after {
-		background-color: rgba(clackd.$brand-gray05, 0.95);
+	&__item {
+		// align-items: flex-end;
+		// cursor: pointer;
+		// display: inline-flex;
+		// font: 700 1.25rem/1.875rem clackd.$font-codec;
+		// height: 4rem;
+		// justify-content: flex-start;
+		// padding: 0.75rem;
+		// position: relative;
+		// transition: all 0.3s ease;
+		// width: 19rem;
+
+		// &::before {
+		// 	background-color: color.$white;
+		// 	border-radius: 0;
+		// 	box-shadow: inset -0.25rem 0.25rem 0 rgba(clackd.$brand-gray04, 1);
+		// 	border: 0.0625rem solid clackd.$brand-black;
+		// 	content: '';
+		// 	height: 100%;
+		// 	left: 0;
+		// 	pointer-events: none;
+		// 	position: absolute;
+		// 	top: 0;
+		// 	transition: all 0.3s ease;
+		// 	width: 100%;
+		// 	z-index: 3;
+		// }
+
+		// &::after {
+		// 	background-color: clackd.$brand-gray03;
+		// 	content: '';
+		// 	height: 100%;
+		// 	left: 0.25rem;
+		// 	pointer-events: none;
+		// 	position: absolute;
+		// 	top: -0.25rem;
+		// 	transition: all 0.3s ease;
+		// 	width: 100%;
+		// 	z-index: 2;
+		// }
+
+		background-image: linear-gradient(
+			-60deg,
+			clackd.$brand-blue 50%,
+			clackd.$brand-gold 50%
+		);
 		bottom: 0;
-		height: 50vh;
-		z-index: 0;
+		left: -50%;
+		opacity: 0.5;
+		position: fixed;
+		right: -50%;
+		top: 0;
+		z-index: -1;
+
+		&:nth-last-child(1) {
+			// animation: loadingB 2s 1s infinite;
+			animation: slide 1.5s ease-in-out infinite alternate;
+		}
+
+		&:nth-last-child(2) {
+			// animation: loadingB 2s 0.5s infinite;
+			animation: slide 2.25s ease-in-out infinite alternate-reverse;
+		}
+
+		&:nth-last-child(3) {
+			// animation: loadingB 2s 0s infinite;
+			animation: slide 3.5s ease-in-out infinite alternate;
+		}
+
+		span {
+			color: clackd.$brand-gray01;
+			display: block;
+			font: 700 italic 0.875rem/1 clackd.$font-codec;
+			position: relative;
+			z-index: 5;
+		}
 	}
 }
 
@@ -44,6 +210,71 @@ body {
 	margin: auto 0;
 	max-height: 100vh;
 	max-width: 100%;
+	opacity: 1;
+	position: absolute;
 	top: 0;
+	transition: opacity 0.3s ease;
 	z-index: 1;
+
+	&--loading {
+		opacity: 0;
+	}
+
+	@media (min-width: var.$laptop) {
+		gap: 3.75rem;
+	}
+
+	@media (min-width: var.$desktop) {
+		gap: 5rem;
+	}
+
+	// &::before,
+	// &::after {
+	// 	content: '';
+	// 	display: block;
+	// 	left: 0;
+	// 	position: absolute;
+	// 	width: 100vw;
+	// }
+
+	// &::before {
+	// 	background-color: rgba(clackd.$brand-gray05, 0.45);
+	// 	height: 45vh;
+	// 	top: 50%;
+	// 	transform: rotate(45deg) scale(1.5) translateY(-50%);
+	// 	z-index: 0;
+	// }
+
+	// &::after {
+	// 	background-color: rgba(clackd.$brand-gray04, 0.45);
+	// 	bottom: 0;
+	// 	height: 45vh;
+	// 	transform: rotate(45deg) scale(1.5);
+	// 	z-index: -1;
+	// }
+
+	// vvv suppose to be for animating on loading finished
+
+	// .swiper-slide-active,
+	// .swiper-slide-next,
+	// .swiper-slide-prev {
+	// 	opacity: 0;
+	// }
+
+	// // animation: $name $easing $duration $direction forwards;
+
+	// .slider-tabs {
+	// 	.swiper-slide-active {
+	// 		animation: fadeIn ease-in 0.3s 1s normal forwards;
+	// 	}
+
+	// 	.swiper-slide-next {
+	// 		animation: fadeIn ease-in 0.3s 2s normal forwards;
+	// 	}
+
+	// 	.swiper-slide-prev {
+	// 		// animation: $name $easing $duration $direction forwards;
+	// 		animation: fadeIn ease-in 0.3s 0s normal forwards;
+	// 	}
+	// }
 }

@@ -7,10 +7,12 @@ import React, {
 	useState,
 } from 'react'
 
+// import { Component } from '@components/Structure/Component'
 import { useSlider } from '@components/Slider/src'
 
 import {
 	createClassList,
+	filterChildrenByDisplayName,
 	getDefaultProps,
 	getOptionalAttributes,
 } from '@utils/helpers/components'
@@ -33,6 +35,7 @@ const defaultProps: Partial<SliderLightboxProps> = {
 const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 	(props, ref) => {
 		const {
+			children,
 			className,
 			displayAs,
 			isDisabled,
@@ -46,11 +49,12 @@ const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 			lightbox,
 		} = useSlider()
 
-		const isLightboxToggled = Object.hasOwn(lightbox, 'url')
 		const lightboxImgRef = useRef<HTMLImageElement>(null)
-
 		const [imagePosition, setImagePosition] = useState<Record<string, number>>()
 		const [deactivated, setDeactivation] = useState(false)
+		// const [isLightboxToggled, toggleLightboxVisibility] = useState(false)
+
+		const isLightboxToggled = Object.hasOwn(lightbox, 'url')
 
 		const classes = createClassList(
 			'slider-lightbox',
@@ -64,8 +68,10 @@ const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 			'data-loading': isLoading,
 		} as Partial<SliderLightboxPropsList>
 
-		const attributes = getOptionalAttributes<Partial<
-		SliderLightboxPropsList>>(props, otherAttributes)
+		const attributes = getOptionalAttributes<Partial<SliderLightboxPropsList>>(
+			props,
+			otherAttributes
+		)
 
 		const args = {
 			...rest,
@@ -93,6 +99,7 @@ const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 		useEffect(() => {
 			if (lightboxImgRef.current && Object.hasOwn(lightbox, 'url')) {
 				setDeactivation(false)
+				// toggleLightboxVisibility(true)
 
 				const lightboxBoundingRect = lightboxImgRef.current.getBoundingClientRect()
 				const lightboxYposition = lightboxBoundingRect.top
@@ -117,6 +124,13 @@ const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 			minWidth: lightbox.width,
 		} as CSSProperties
 
+		const allowedSubcomponents = [
+			'Image',
+			'Text',
+		]
+
+		const filteredChildren = filterChildrenByDisplayName(children, allowedSubcomponents)
+
 
 		return (
 			<div
@@ -138,6 +152,7 @@ const SliderLightbox = forwardRef<HTMLDivElement, SliderLightboxPropsList>(
 						src={ lightbox.url }
 						style={ imageStyles }
 					/>
+					{ filteredChildren }
 				</div>
 			</div>
 		)

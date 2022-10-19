@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react'
 import { Controller } from 'swiper'
 import { Swiper } from 'swiper/react'
 import { SliderDot } from './SliderDot'
+// import { Component } from '@components/Structure/Component'
 
 import { getControllerIfControlExists } from '@components/Slider/utils'
 import { useSlider } from '@components/Slider/src'
@@ -60,6 +61,7 @@ const SliderDots = forwardRef<HTMLDivElement, SliderDotsPropsList>(
 					onSwiper: handleSwiper,
 				},
 			},
+			// handleSetActiveSlide,
 			sharedControlOptions,
 			sliderInfo: {
 				active: activeSlide,
@@ -75,6 +77,7 @@ const SliderDots = forwardRef<HTMLDivElement, SliderDotsPropsList>(
 			...controller,
 			initialSlide,
 			modules: [Controller],
+			onActiveIndexChange: (swiper: SwiperClass) => console.log(swiper.activeIndex),
 			onSwiper: (swiper: SwiperClass) => handleSwiper(swiper),
 			slidesPerGroup: count,
 			spaceBetween: gutter,
@@ -90,14 +93,18 @@ const SliderDots = forwardRef<HTMLDivElement, SliderDotsPropsList>(
 			>
 				<Swiper className="slider-dots__swiper" { ...swiperDotsOptions }>
 					{ slides.map((_, k) => {
-						const activeDotClass = activeSlide === k + 1
+						const activeDotClass = activeSlide === k
 							? 'slide-dot--active'
 							: ''
 
 						console.log(activeSlide)
 
 						return (
-							<SliderDot className={ activeDotClass } key={ `dot-${k}` } />
+							<SliderDot
+								className={ activeDotClass }
+								index={ k }
+								key={ `dot-${k}` }
+							/>
 						)
 					})}
 				</Swiper>

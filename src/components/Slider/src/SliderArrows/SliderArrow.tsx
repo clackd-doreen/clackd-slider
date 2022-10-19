@@ -1,13 +1,14 @@
 import React, { forwardRef } from 'react'
 
-import * as FeatherIcons from 'react-icons/fi'
+import * as TablerIcons from 'react-icons/tb'
 
+// import { Component } from '@components/Structure/Component'
 import { handleSlider } from '@components/Slider/utils'
 import { useSlider } from '@components/Slider/src'
 import { toTitleCase } from '@utils/helpers'
 
 import {
-	createClassList,
+	createClassList,	// change to generateUtilityClasses?
 	filterProps,
 	getDefaultProps,
 	getOptionalAttributes,
@@ -19,7 +20,7 @@ import type {
 	ArrowsList,
 	ArrowVariants,
 	IconsList,
-} from '@/types/icons'
+} from '@typings/icons'
 
 import type {
 	HandleSliderProps,
@@ -38,33 +39,33 @@ const defaultProps: Partial<SliderArrowProps> = {
 const getArrowsByIconName = (icon: ArrowVariants = 'arrow') => {
 	const arrows = {
 		'arrow': {
-			'down': 'FiArrowDown',
-			'left': 'FiArrowLeft',
-			'right': 'FiArrowRight',
-			'up': 'FiArrowUp',
+			'down': 'TbArrowDown',
+			'left': 'TbArrowLeft',
+			'right': 'TbArrowRight',
+			'up': 'TbArrowUp',
 		},
 		'chevron': {
-			'down': 'FiChevronown',
-			'left': 'FiChevronLeft',
-			'right': 'FiChevronRight',
-			'up': 'FiChevronUp',
+			'down': 'TbChevronown',
+			'left': 'TbChevronLeft',
+			'right': 'TbChevronRight',
+			'up': 'TbChevronUp',
 		},
 		'circle': {
-			'down': 'FiArrowDownCircle',
-			'left': 'FiArrowLeftCircle',
-			'right': 'FiArrowRightCircle',
-			'up': 'FiArrowUpCircle',
+			'down': 'TbArrowDownCircle',
+			'left': 'TbArrowLeftCircle',
+			'right': 'TbArrowRightCircle',
+			'up': 'TbArrowUpCircle',
 		},
 		'doubleChevron': {
-			'down': 'FiChevronsDown',
-			'left': 'FiChevronsLeft',
-			'right': 'FiChevronsRight',
-			'up': 'FiChevronsUp',
+			'down': 'TbChevronsDown',
+			'left': 'TbChevronsLeft',
+			'right': 'TbChevronsRight',
+			'up': 'TbChevronsUp',
 		},
 		'skip': {
 			'down': null,
-			'left': 'FiSkipBack',
-			'right': 'FiSkipForward',
+			'left': 'TbSkipBack',
+			'right': 'TbSkipForward',
 			'up': null,
 		},
 	}[`${icon}`] as ArrowsList
@@ -105,7 +106,7 @@ const SliderArrow = forwardRef<HTMLButtonElement, SliderArrowPropsList>(
 				onClick: () => void
 			}
 
-		const FiArrowIcon: IconType = FeatherIcons[`${arrows.icon}`]
+		const TbArrowIcon: IconType = TablerIcons[`${arrows.icon}`]
 		const onArrowClick = () => arrows.onClick()
 
 		const classes = createClassList(
@@ -118,6 +119,7 @@ const SliderArrow = forwardRef<HTMLButtonElement, SliderArrowPropsList>(
 		const handlers = {
 			...props as HandleSliderProps,
 			...{ onClick: onArrowClick },
+			// ...{ onKeyPress: event => event.key === 'Enter' && onArrowClick() }
 		}
 
 		const attributes = getOptionalAttributes<Partial<SliderArrowPropsList>>(props, {}),
@@ -140,7 +142,7 @@ const SliderArrow = forwardRef<HTMLButtonElement, SliderArrowPropsList>(
 				ref={ ref }
 				type="button"
 			>
-				<FiArrowIcon />
+				<TbArrowIcon />
 			</button>
 		)
 	}
