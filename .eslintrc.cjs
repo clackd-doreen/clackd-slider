@@ -51,6 +51,22 @@ module.exports = {
 				'project': path.join(__dirname, './tsconfig.json'),
 			},
 		},
+		// storybook
+		{
+			'extends': [
+				'plugin:storybook/recommended'
+			],
+			'files': [
+				'*.stories.js',
+				'*.stories.jsx',
+				'*.stories.ts',
+				'*.stories.tsx'
+			],
+			'rules': {
+				'import/no-anonymous-default-export': 'off',
+				'import/no-default-export': 'off',
+			}
+		},
 		// styled components
 		{
 			'files': [
@@ -953,7 +969,15 @@ module.exports = {
 		],
 		'space-infix-ops': 'off',							// @typescript
 		'space-unary-ops': 'error',
-		'spaced-comment': 'error',
+		'spaced-comment': [
+			'error',
+			'always',
+			{
+				'markers': [
+					'/'
+				]
+			}
+		],
 		'template-curly-spacing': 'error',
 		'typescript-sort-keys/interface': [
 			'warn',
@@ -1019,7 +1043,7 @@ module.exports = {
 					['@pages', path.join(__dirname, './src/pages')],
 					['@styles', path.join(__dirname, './src/styles')],
 					['@templates', path.join(__dirname, './src/templates')],
-					['@types', path.join(__dirname, './src/types')],
+					['@typings', path.join(__dirname, './src/typings')],
 					['@utils', path.join(__dirname, './src/utils')],
 				],
 				'root': './'

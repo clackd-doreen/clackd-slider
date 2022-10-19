@@ -4,7 +4,8 @@ import {
 	Slider,
 	SliderArrows,
 	SliderContent,
-	SliderDots,
+	// SliderDots,
+	SliderHeader,
 	SliderIndicator,
 	SliderLightbox,
 	SliderTabs,
@@ -13,25 +14,23 @@ import {
 import './App.scss'
 
 
-export const App = () => {
-	console.log('')
-
-	return (
-		<div className="App">
-			<img
-				alt="clackd logo"
-				className="logo__clackd"
-				src="https://clackd.com/static/media/logo-black.1911b938.svg"
-			/>
-
-			<Slider initialSlide={ 5 }>
-				<SliderTabs />
+export const App = () => (
+	<div className="App">
+		<Slider>
+			<SliderHeader>
+				<img
+					alt="clackd logo"
+					className="logo__clackd"
+					src="https://clackd.com/static/media/logo-black.1911b938.svg"
+				/>
+			</SliderHeader>
+			<SliderTabs />
+			<SliderContent>
 				<SliderArrows icon="chevron" />
-				<SliderContent />
-				<SliderDots />
-				<SliderIndicator />
-				<SliderLightbox />
-			</Slider>
-		</div>
-	)
-}
+			</SliderContent>
+			{/* <SliderDots /> */}
+			<SliderIndicator />
+			<SliderLightbox />
+		</Slider>
+	</div>
+)

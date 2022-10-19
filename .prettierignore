@@ -2,6 +2,8 @@
 .prettierrc.js
 vite.config.ts
 
+!.storybook
+
 /dist/*
 /node_modules/*
 /src/main.tsx

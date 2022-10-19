@@ -4,10 +4,10 @@ import * as path from 'path'
 import autoprefixer from 'autoprefixer'
 import checker from 'vite-plugin-checker'
 import dts from 'vite-plugin-dts'
-import eslint from 'vite-plugin-eslint'
 import react from '@vitejs/plugin-react'
 import StylelintPlugin from 'vite-plugin-stylelint'
 import tsconfigPaths from 'vite-tsconfig-paths'
+// import eslint from 'vite-plugin-eslint'
 // import { esbuildCommonjs, viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 // https://vitejs.dev/config/
@@ -15,6 +15,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
 	assetsInclude: ['**/*.cjs'],
+	// base: './',
 	build: {
 		lib: {
 			entry: path.resolve(__dirname, 'src/index.ts'),
@@ -33,14 +34,15 @@ export default defineConfig({
 				autoprefixer
 			],
 		},
-		// preprocessorOptions: {
-    	// 	scss: {
-        // 		additionalData: `
-		// 			@use "./src/styles/_reset.scss" as *;
-       	// 			@use "./src/styles/_variables.scss" as *;
-       	// 		`,
-    	// 	},
-    	// },
+		preprocessorOptions: {
+    		scss: {
+        		additionalData: `
+					@use "./src/styles/_reset.scss" as *;
+					@use "./src/styles/_variables.scss" as *;
+					@use "./src/styles/_global.scss" as *;
+       			`,
+    		},
+    	},
 	},
 	// esbuild: {
 	// 	jsxInject: `import React from 'react'`
@@ -53,17 +55,18 @@ export default defineConfig({
 	plugins: [
 		checker({
 			eslint: {
-				lintCommand: 'eslint "./src/**/*.{ts,tsx}"', // for example, lint .ts & .tsx
+				lintCommand: 'eslint --cache "./src/**/*.{ts,tsx}"', // for example, lint .ts & .tsx
 			},
 			typescript: true
 		}),
 		dts({ insertTypesEntry: true }),
-		eslint(),
 		react(),
 		StylelintPlugin(),
 		tsconfigPaths(),
+		// eslint(),
 		// viteCommonjs()
 	],
+	publicDir: 'public',
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
@@ -75,7 +78,7 @@ export default defineConfig({
 			'@pages': path.resolve(__dirname, './src/pages'),
 			'@styles': path.resolve(__dirname, './src/styles'),
 			'@templates': path.resolve(__dirname, './src/templates'),
-			'@types': path.resolve(__dirname, './src/types'),
+			'@typings': path.resolve(__dirname, './src/typings'),
 			'@utils': path.resolve(__dirname, './src/utils'),
 		},
 		extensions: [
@@ -87,4 +90,19 @@ export default defineConfig({
 			'.d.tsx',
 		]
 	},
+	// optimizeDeps: {
+    //     esbuildOptions: {
+    //         plugins: [
+    //             esbuildCommonjs([
+    //                 '@storybook/preview-web',
+    //             ]),
+    //         ],
+    //     },
+    // },
+	// optimizeDeps: {
+	// 	include: [
+	// 		path.resolve(__dirname, './.storybook/preview.cjs')
+	// 	]
+	// },
+	
 })

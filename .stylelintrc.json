@@ -9,7 +9,6 @@
 		"stylelint-declaration-block-no-ignored-properties",
 		"stylelint-declaration-strict-value",
 		"stylelint-high-performance-animation",
-		"stylelint-no-browser-hacks/lib",
 		"stylelint-no-unsupported-browser-features",
 		"stylelint-order",
 		"stylelint-scss",
@@ -17,7 +16,14 @@
 		"stylelint-use-nesting",
 		"stylelint-value-no-unknown-custom-properties"
 	],
-	"processors": ["stylelint-processor-styled-components"],
+	"processors": [
+		[
+			"stylelint-processor-styled-components",
+			{
+				"ignoreFiles": ["**/*.css", "**/*.scss"]
+			}
+		]
+	],
 	"rules": {
 		"annotation-no-unknown": true,
 		"at-rule-empty-line-before": [
@@ -29,7 +35,7 @@
 					"blockless-after-blockless",
 					"first-nested"
 				],
-				"ignoreAtRules": ["import", "media"]
+				"ignoreAtRules": ["import", "media", "mixin"]
 			}
 		],
 		"at-rule-name-space-after": "always",
@@ -57,7 +63,6 @@
 		"function-url-no-scheme-relative": true,
 		"indentation": "tab",
 		"keyframe-block-no-duplicate-selectors": true,
-		"number-max-precision": 2,
 		"max-line-length": 100,
 		"max-nesting-depth": [
 			3,
@@ -71,10 +76,17 @@
 		"no-descending-specificity": true,
 		"no-duplicate-at-import-rules": true,
 		"no-duplicate-selectors": true,
+		"no-eol-whitespace": [
+			true,
+			{
+				"ignore": ["empty-lines"]
+			}
+		],
 		"no-extra-semicolons": true,
 		"no-invalid-position-at-import-rule": true,
 		"no-irregular-whitespace": true,
 		"no-unknown-animations": true,
+		"number-max-precision": 4,
 		"order/order": [
 			[
 				"dollar-variables",
@@ -97,12 +109,6 @@
 		],
 		"order/properties-alphabetical-order": true,
 		"plugin/declaration-block-no-ignored-properties": true,
-		"plugin/no-browser-hacks": [
-			true,
-			{
-				"browsers": ["last 2 versions", "ie >=7"]
-			}
-		],
 		"plugin/no-low-performance-animation-properties": true,
 		"plugin/no-unsupported-browser-features": [
 			true,
@@ -130,7 +136,6 @@
 		],
 		"scale-unlimited/declaration-strict-value": [
 			"/color$/",
-			"font",
 			"font-family",
 			"font-size",
 			"fill",
@@ -140,14 +145,13 @@
 			"stroke"
 		],
 		"scss/at-rule-no-unknown": true,
-		"scss/dollar-variable-pattern": "^foo",
 		"scss/selector-no-redundant-nesting-selector": true,
 		"selector-max-attribute": 4,
 		"selector-max-combinators": 4,
 		"selector-max-compound-selectors": 4,
 		"selector-max-id": 2,
 		"selector-max-pseudo-class": 2,
-		"selector-max-specificity": 4,
+		"selector-max-specificity": "4,4,4",
 		"selector-max-type": 2,
 		"selector-max-universal": 1,
 		"selector-no-qualifying-type": true,
@@ -158,17 +162,12 @@
 		"string-quotes": "single",
 		"unicode-bom": "never",
 		"unit-allowed-list": [
-			["deg", "em", "rem", "vh", "vw"],
+			["deg", "em", "rem", "vh", "vw", "%"],
 			{
-				"ignoreFunctions": ["/^hsl/", "calc"]
+				"ignoreFunctions": ["calc", "/^hsl/"]
 			}
 		],
-		"unit-disallowed-list": [
-			["dpi", "px", "vmax", "vmin"],
-			{
-				"ignoreFunctions": ["/^hsl/", "/^rgb/", "/^rgba/", "calc"]
-			}
-		],
+		"unit-disallowed-list": ["dpi", "px", "vmax", "vmin"],
 		"unit-no-unknown": true,
 		"value-keyword-case": [
 			"lower",

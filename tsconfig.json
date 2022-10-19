@@ -21,7 +21,7 @@
 			"@pages/*": ["./src/pages/*"],
 			"@styles/*": ["./src/styles/*"],
 			"@templates/*": ["./src/templates/*"],
-			"@types/*": ["src/typings/*"],
+			"@typings/*": ["src/typings/*"],
 			"@utils/*": ["./src/utils/*"]
 		},
 		"resolveJsonModule": true,
