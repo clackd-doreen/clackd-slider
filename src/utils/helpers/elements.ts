@@ -1,6 +1,8 @@
 import { findParentElementByClass } from './components/children'
 
 
+// gets height, width, and x/y position of element
+
 const getElementDetails = <T extends HTMLElement>(element: T, parentClass: string) => {
 	const scaledElement = findParentElementByClass(element, parentClass)
 	let height = 0,
@@ -33,6 +35,10 @@ const getElementDetails = <T extends HTMLElement>(element: T, parentClass: strin
 		yPos,
 	}
 }
+
+
+// gets element's height, width, and x/y position
+// in addition, alt and src
 
 const getImageDetails = <T extends HTMLImageElement>(target: T, parentClass: string) => {
 	const elementDetails = getElementDetails<HTMLImageElement>(target, parentClass)

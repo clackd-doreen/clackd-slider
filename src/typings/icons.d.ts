@@ -1,10 +1,10 @@
-import type * as FeatherIcons from 'react-icons/fi'
+import type * as TablerIcons from 'react-icons/tb'
 // import type { IconType } from 'react-icons/lib'
 
 import type { Directions } from './props-common'
 
 
-type IconsList = keyof typeof FeatherIcons
+type IconsList = keyof typeof TablerIcons
 type ArrowsList = Record<Directions, IconsList>
 
 type ArrowVariants =

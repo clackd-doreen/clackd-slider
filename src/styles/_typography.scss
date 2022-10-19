@@ -1,0 +1,19 @@
+@use '@styles/variables' as var;
+@use '@styles/mixins' as mix;
+
+body {
+	font: 300 1rem/1.75 var.$mukta;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var.$hind-madurai;
+	font-weight: 600;
+}
+
+h4,
+h5 {
+	font-family: var.$hind-madurai;
+	font-weight: 500;
+}

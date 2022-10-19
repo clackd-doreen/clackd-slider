@@ -9,6 +9,28 @@ import type {
 } from 'react'
 
 
+const filterChildrenByDisplayName = (
+	children: ReactNode,
+	filter: string[]
+) => {
+	const allowedComponents = [] as ReactNode[]
+
+	Children.toArray(children).forEach(child => {
+		if (isValidElement(child)) {
+			const { displayName } = child.type as FunctionComponent
+
+			if (displayName) {
+				if (filter.includes(displayName))
+					allowedComponents.push(child)
+				else
+					console.error(`${displayName} is not a valid component`)
+			}
+		}
+	})
+
+	return allowedComponents
+}
+
 const getChildrenDisplayNames = (
 	children: ReactNode
 ) => {
@@ -50,4 +72,5 @@ const findParentElementByClass = (
 export {
 	getChildrenDisplayNames,
 	findParentElementByClass,
+	filterChildrenByDisplayName,
 }

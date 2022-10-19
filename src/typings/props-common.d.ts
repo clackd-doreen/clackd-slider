@@ -10,7 +10,9 @@ import type {
 	alignments,
 	componentSizes,
 	directions,
+	orientations,
 	priorities,
+	rotations,
 	shapes,
 } from '@utils/constants'
 
@@ -63,11 +65,9 @@ type LoaderVariants =
 	| 'pulse'
 	| 'spinner'
 
-type Orientation =
-	| 'horizontal'
-	| 'vertical'
-
+type Orientation = typeof orientations[number]
 type PriorityRating = typeof priorities[number]
+type Rotation = typeof rotations[number]
 type Shapes = typeof shapes[number]
 
 type SpacingRem =
@@ -104,6 +104,7 @@ export type {
 	PropsGroup,
 	PropsList,
 	PropsNestedList,
+	Rotation,
 	SingleProp,
 	Shapes,
 	SpacingRem,

@@ -1,0 +1,81 @@
+@use '@styles/variables' as var;
+@use '@styles/mixins' as mix;
+
+.story {
+	$base: &;
+
+	&__container {
+		padding: 5rem;
+	}
+
+	&__group {
+		display: grid;
+		gap: 2rem 2.5rem;
+		grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+		margin-bottom: 2.5rem;
+
+		&--buttons-all-variants {
+			gap: 1.25rem;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		&--buttons-full-width,
+		&--buttons-text-alignment {
+			display: block;
+
+			#{$base}__item + #{$base}__item {
+				margin-top: 2.5rem;
+			}
+		}
+
+		&--buttons-text-alignment {
+			max-width: 75%;
+		}
+	}
+
+	&__group--icons {
+		#{$base}__item:hover::after {
+			opacity: 1;
+		}
+	}
+
+	&__item {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		pointer-events: none;
+		position: relative;
+		z-index: 1;
+
+		&::after {
+			border-radius: 0.25rem;
+			box-shadow: rgba(99, 99, 99, 0.15) 0 0.125rem 0.5rem 0;
+			content: '';
+			display: block;
+			height: 100%;
+			left: -1.25rem;
+			opacity: 0;
+			padding: 1.25rem;
+			position: absolute;
+			top: -1.25rem;
+			transition: all 0.3s linear;
+			width: 100%;
+			z-index: 0;
+		}
+
+		& > * {
+			pointer-events: all;
+		}
+	}
+
+	&__heading:not(#{$base}__heading--inline) span {
+		display: block;
+		font: 500 1rem var.$hind-madurai;
+	}
+}
+
+.sb-show-main.sb-main-centered #root {
+	min-height: 100%;
+	width: 100%;
+}

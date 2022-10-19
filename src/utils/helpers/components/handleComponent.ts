@@ -7,14 +7,30 @@ import {
 	omitKeysIn,
 } from '@utils/helpers/objects'
 
-import type { CommonProps } from '@/types/props-common'
-import type { EventsList } from '@/types/events'
+import type { CommonProps } from '@typings/props-common'
+import type { EventsList } from '@typings/events'
 
 
 interface UseComponentProps<T, > extends
 	EventsList<T>,
 	Pick<CommonProps, 'isDisabled'> {}
 
+
+// const useKeyPress = (targetKey: string) => {
+// 	const handleMatchingKeys = (event: KeyboardEvent) => {
+// 		if (event.key === targetKey) {
+// 			console.log('HENLO')
+// 		}
+// 	}
+
+// 	useEffect(() => {
+// 		window.addEventListener('keypress', handleMatchingKeys)
+
+// 		return () => {
+// 			window.removeEventListener('keypress', handleMatchingKeys)
+// 		}
+// 	}, [])
+// }
 
 const getComponentEventHandlers = <P, >(
 	props: EventsList<P>,
@@ -43,6 +59,17 @@ const handleComponent = <P, >(props: P) => {
 	const handleCallback = (callback: (() => void)) => {
 		if (checkValidity(callback))
 			callback()
+
+		// if (deepTypeOf(args) !== 'array'
+		// 	&& deepTypeOf(args) !== 'object'
+		// ) return false
+
+		// console.log(args)
+
+		// args.forEach((callback: (() => void)) => {
+		// 	if (checkValidity(callback))
+		// 		callback()
+		// })
 	}
 
 	// event handler functions
@@ -196,3 +223,81 @@ const handleComponent = <P, >(props: P) => {
 
 export { handleComponent }
 export type { UseComponentProps }
+
+// const handleTestEvent = () => ''
+
+// const useButtonTestProps: UseButtonProps = {
+// 	'onBlur': handleTestEvent,
+// 	'onClick': handleTestEvent,
+// 	'onFocus': handleTestEvent,
+// 	'onKeyDown': handleTestEvent,
+// 	'onKeyPress': handleTestEvent,
+// 	'onKeyUp': handleTestEvent,
+// 	'onMouseDown': handleTestEvent,
+// 	'onMouseEnter': handleTestEvent,
+// 	'onMouseLeave': handleTestEvent,
+// 	'onMouseUp': handleTestEvent
+// }
+
+// import {
+// 	FocusEventHandler,
+// 	KeyboardEventHandler,
+// 	MouseEventHandler
+// } from 'react'
+
+
+// https://reactjs.org/docs/events.html#reference
+
+// interface UseButtonProps {
+// 	onBlur?: FocusEventHandler
+// 	onClick?: FocusEventHandler
+// 	onFocus?: FocusEventHandler
+// 	onKeyDown?: KeyboardEventHandler
+// 	onKeyPress?: KeyboardEventHandler
+// 	onKeyUp?: KeyboardEventHandler
+// 	onMouseDown?: MouseEventHandler
+// 	onMouseEnter?:MouseEventHandler
+// 	onMouseLeave?: MouseEventHandler
+// 	onMouseUp?: MouseEventHandler
+// }
+
+
+// old props list
+
+// const {
+// 	// general
+// 	isDisabled,
+
+// 	// animation events
+// 	onAnimationEnd,
+// 	onAnimationIteration,
+// 	onAnimationStart,
+
+// 	// clipboard events
+
+// 	// focus events
+// 	onBlur,
+// 	onFocus,
+
+// 	// form events
+
+// 	// keyboard events
+// 	onKeyDown,
+// 	onKeyPress,
+// 	onKeyUp,
+
+// 	// mouse events
+// 	onClick,
+// 	onMouseDown,
+// 	onMouseEnter,
+// 	onMouseLeave,
+// 	onMouseUp
+
+// 	// mouse drag events
+
+// 	// touchscreen events
+
+// 	// generic events
+
+// 	// misc events (scroll, wheel, transition)
+// } = props

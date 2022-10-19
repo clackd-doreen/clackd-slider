@@ -19,10 +19,20 @@ const directions = [
 	'up',
 ] as const
 
+const orientations = [
+	'horizontal',
+	'vertical',
+] as const
+
 const priorities = [
 	'low',
 	'medium',
 	'high',
+] as const
+
+const rotations = [
+	'clockwise',
+	'counterclockwise',
 ] as const
 
 const shapes = [
@@ -37,6 +47,8 @@ export {
 	alignments,
 	componentSizes,
 	directions,
+	orientations,
 	priorities,
+	rotations,
 	shapes,
 }

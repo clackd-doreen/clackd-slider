@@ -1,4 +1,9 @@
 
+// slugify
+// deslugify
+
+
+// title-cases string
 
 const toTitleCase = (phrase: string) => (
 	phrase

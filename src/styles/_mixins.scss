@@ -1,10 +1,28 @@
-@mixin outputAnimations(
+@mixin component-states {
+	&[data-disabled='true'],
+	&[data-loading='true'] {
+		cursor: not-allowed;
+		filter: brightness(0.9);
+
+		* {
+			pointer-events: none;
+		}
+	}
+
+	&[data-disabled='true'] {
+		opacity: 0.6;
+	}
+
+	&[data-loading='true'] {
+		opacity: 0.4;
+	}
+}
+
+@mixin output-animations(
 	$name,
 	$duration: 0.75s,
 	$easing: ease-in-out,
 	$direction: normal
 ) {
 	animation: $name $easing $duration $direction forwards;
-	-moz-animation: $name $easing $duration $direction forwards;
-	-webkit-animation: $name $easing $duration $direction forwards;
 }

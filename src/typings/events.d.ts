@@ -1,4 +1,4 @@
-import { asLiterals } from '@/types/fields'
+import { asLiterals } from '@typings/fields'
 
 import {
 	animationEventsList,
