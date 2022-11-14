@@ -64,8 +64,6 @@ const handleComponent = <P, >(props: P) => {
 		// 	&& deepTypeOf(args) !== 'object'
 		// ) return false
 
-		// console.log(args)
-
 		// args.forEach((callback: (() => void)) => {
 		// 	if (checkValidity(callback))
 		// 		callback()

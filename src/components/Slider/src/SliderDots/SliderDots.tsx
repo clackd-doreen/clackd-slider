@@ -97,8 +97,6 @@ const SliderDots = forwardRef<HTMLDivElement, SliderDotsPropsList>(
 							? 'slide-dot--active'
 							: ''
 
-						console.log(activeSlide)
-
 						return (
 							<SliderDot
 								className={ activeDotClass }

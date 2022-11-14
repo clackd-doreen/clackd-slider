@@ -79,13 +79,6 @@ const useSliderControls = (initialSlide = 0) => {
 		// }
 
 		if (swiperContent && swiperDots) {
-			console.log('clicked dots')
-			console.log(activeSlide)
-			console.log(`index: ${index}`)
-			console.log(`clickedIndex: ${swiperDots.clickedIndex}`)
-			console.log(`realIndex: ${swiperDots.realIndex}`)
-			console.log(swiperDots)
-
 			if (activeSlide !== swiperDots.clickedIndex)
 				swiperContent.slideTo(swiperDots.clickedIndex, 600)
 		}

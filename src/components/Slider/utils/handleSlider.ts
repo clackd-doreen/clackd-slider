@@ -34,24 +34,17 @@ const handleSlider = (
 
 	const eventHandlers = handleComponent<HandleSliderProps>(props)
 
-	// console.log(props)
-
 	// handlers.onBlur()
 	const handleBlur = () => ''
 
 	const combineHandlers = (type: SliderEventsList) => {
-		console.log(`handler type: ${type}`)
 		// const target = new EventTarget()
 		// target.addEventListener('click', event => console.log(event))
-		// console.log(target)
-		// console.log('use Slider click')
 	}
 
 	const createHandleClick = () => {
-		// console.log('handle slider click')
-		// console.log(event)
+
 		eventHandlers.handleClick(() => combineHandlers('onClick'))
-		// console.log(event)
 	}
 
 	// handlers.onFocus()

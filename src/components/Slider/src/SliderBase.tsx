@@ -168,17 +168,17 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 				setLightbox({})
 		}, [])
 
-		useEffect(() => {
-			if (!swiperContent || !swiperDots || !swiperTabs) return
+		// useEffect(() => {
+		// 	if (!swiperContent || !swiperDots || !swiperTabs) return
 
-			console.log(swiperContent)
-			console.log(swiperDots)
-			console.log(swiperTabs)
-		}, [
-			swiperContent,
-			swiperDots,
-			swiperTabs,
-		])
+		// 	// console.log(swiperContent)
+		// 	// console.log(swiperDots)
+		// 	// console.log(swiperTabs)
+		// }, [
+		// 	swiperContent,
+		// 	swiperDots,
+		// 	swiperTabs,
+		// ])
 
 		useEffect(() => {
 			// const globsTest = import.meta.glob('@components/Data/Slider/demo/*')
@@ -188,7 +188,6 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 
 		// sets the list of image urls
 		useEffect(() => {
-			console.log(globs)
 			if (Object.keys(globs).length === 0) return
 			getImageUrls(globs, setImages)
 		}, [globs])
@@ -205,8 +204,6 @@ const SliderBase = forwardRef<HTMLDivElement, SliderPropsList>(
 			}
 		}, [images])
 
-		const contentControllers = getControllersList()
-		console.log(contentControllers)
 		// content: controller swiperDots
 		// dots: controller swiperTabs
 		// tabs: controller swiperContent
