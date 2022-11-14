@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts'
 import react from '@vitejs/plugin-react'
 import StylelintPlugin from 'vite-plugin-stylelint'
 import tsconfigPaths from 'vite-tsconfig-paths'
+
 // import eslint from 'vite-plugin-eslint'
 // import { esbuildCommonjs, viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
@@ -15,14 +16,32 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
 	assetsInclude: ['**/*.cjs'],
-	// base: './',
+	base: './',
 	build: {
-		lib: {
-			entry: path.resolve(__dirname, 'src/index.ts'),
-			name: 'MyLib',
-			formats: ['es'],
-			fileName: 'my-lib'
-		}
+        // assetsInlineLimit: 100000000,
+		cssCodeSplit: false,
+		rollupOptions: {
+			external: ['react', 'react-dom'],
+			input: {
+				main: path.resolve(__dirname, 'index.html'),
+				// about: './about.html',
+				// ...
+				// List all files you want in your build
+			},
+			output: {
+				globals: {
+					react: "React",
+					"react-dom": "ReactDOM",
+				},
+				format: 'iife',
+			}
+		},
+		// lib: {
+		// 	entry: path.resolve(__dirname, 'index.html'),
+		// 	fileName: 'my-lib',
+		// 	formats: ['es'],
+		// 	name: 'MyLib',
+		// },
 	},
 	css: {
 		modules: {
@@ -43,6 +62,9 @@ export default defineConfig({
        			`,
     		},
     	},
+	},
+	define: {
+    	'process.env': process.env
 	},
 	// esbuild: {
 	// 	jsxInject: `import React from 'react'`
@@ -80,6 +102,8 @@ export default defineConfig({
 			'@templates': path.resolve(__dirname, './src/templates'),
 			'@typings': path.resolve(__dirname, './src/typings'),
 			'@utils': path.resolve(__dirname, './src/utils'),
+			// 'react': 'https://cdn.skypack.dev/react@17',
+		    // 'react-dom': 'https://cdn.skypack.dev/react-dom@17',
 		},
 		extensions: [
 			'.js',
@@ -90,6 +114,9 @@ export default defineConfig({
 			'.d.tsx',
 		]
 	},
+	server: {
+      open: true,
+   }
 	// optimizeDeps: {
     //     esbuildOptions: {
     //         plugins: [
