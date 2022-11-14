@@ -51,22 +51,6 @@ module.exports = {
 				'project': path.join(__dirname, './tsconfig.json'),
 			},
 		},
-		// storybook
-		{
-			'extends': [
-				'plugin:storybook/recommended'
-			],
-			'files': [
-				'*.stories.js',
-				'*.stories.jsx',
-				'*.stories.ts',
-				'*.stories.tsx'
-			],
-			'rules': {
-				'import/no-anonymous-default-export': 'off',
-				'import/no-default-export': 'off',
-			}
-		},
 		// styled components
 		{
 			'files': [
